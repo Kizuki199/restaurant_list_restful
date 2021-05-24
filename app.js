@@ -69,6 +69,7 @@ app.get('/restaurant/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 app.post('/restaurant/:id/edit', (req, res) => {
+  const id = req.params.id
   const name = req.body.name
   const name_en = req.body.name_en
   const category = req.body.category
@@ -91,7 +92,7 @@ app.post('/restaurant/:id/edit', (req, res) => {
       restaurant.description = description
       return restaurant.save()
     })
-    .then(() => res.redirect('restaurant/${id}'))
+    .then(() => res.redirect(`/restaurant/${id}`))
     .catch(error => console.log(error))
 })
 
