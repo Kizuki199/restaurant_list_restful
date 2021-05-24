@@ -1,3 +1,17 @@
+<header>
+  <!-- navigation -->
+  <nav class="navbar navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
+          width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
+        我的餐廳清單
+      </a>
+    </div>
+  </nav>
+
+  <div class="banner"></div>
+</header>
 <!-- search bar -->
 <div class="container search-bar">
   <div class="search-bar-outer">
@@ -12,7 +26,7 @@
           </div>
         </div>
       </form>
-      <a href="./restaurant/new">Create</a>
+      <a class="add-new" href="./restaurant/new">新增餐廳</a>
     </div>
   </div>
 </div>
@@ -23,24 +37,24 @@
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
-        {{#each restaurants}}
+        {{#each Restaurant}}
         <a href="/restaurant/{{this._id}}" class="text-secondary">
           <div class="card mb-3">
+
             <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
             <div class="card-body p-3">
               <h6 class="card-title mb-1">{{this.name}}</h6>
 
               <div class="restaurant-category mb-1">
-                <i class="bi bi-egg-fried"></i> {{this.category}}
+                <i class="fas fa-utensils pr-2"></i> {{this.category}}
               </div>
-
               <span class="badge badge-pill badge-danger font-weight-normal">
                 {{this.rating}}
-                <i class="bi bi-stars"></i>
+                <i class="fas fa-star fa-xs"></i>
               </span>
               <a href="/restaurant/{{this._id}}">detail</a>
               <a href="/restaurant/{{this._id}}/edit">edit</a>
-              <form action="/restaurant/{{this._id}}/delete" method="POST" style="display: inline;">
+              <form action="./restaurant/{{this._id}}/delete" method="POST" style="display: inline;">
                 <button type="submit">delete</button>
               </form>
             </div>

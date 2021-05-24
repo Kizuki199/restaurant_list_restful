@@ -1,46 +1,43 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
-const app = express()
 const mongoose = require('mongoose')
 const Restaurant = require('./models/restaurant')
 const bodyParser = require('body-parser')
 
 
+const app = express()
 const port = 3000
 
 mongoose.connect('mongodb://localhost/restaurant_list_crud', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
-// 連線異常
 db.on('error', () => {
   console.log('mongodb connection error!')
 })
-// 連線成功
 db.once('open', () => {
   console.log('mongodb connection successful')
 })
 
 
-// setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
-// set static files
 app.use(express.static('public'))
-// routes setting
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// index page
 app.get('/', (req, res) => {
   Restaurant.find() // 取出 restaurant model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-    .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
+    .then(Restaurant => res.render('index', { Restaurant })) // 將資料傳給 index 樣板
     .catch(error => console.error(error)) // 錯誤處理
 })
 
+// new page
 app.get('/restaurant/new', (req, res) => {
   return res.render('new')
 })
 
-app.post('/restaurant', (req, res) => {
+app.post('/restaurant/new', (req, res) => {
   const name = req.body.name
   const name_en = req.body.name_en
   const category = req.body.category
@@ -55,12 +52,12 @@ app.post('/restaurant', (req, res) => {
     .catch(error => console.log(error))
 })
 
-
+// detail page
 app.get('/restaurant/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
-    .then((restaurant) => res.render('detail', { restaurant }))
+    .then(Restaurant => res.render('detail', { Restaurant }))
     .catch(error => console.log(error))
 })
 
@@ -68,7 +65,7 @@ app.get('/restaurant/:id/edit', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
-    .then(restaurant => res.render('edit', { restaurant }))
+    .then(Restaurant => res.render('edit', { Restaurant }))
     .catch(error => console.log(error))
 })
 app.post('/restaurant/:id/edit', (req, res) => {

@@ -1,42 +1,84 @@
-<div class="container py-5">
-  <form action="/restaurants/{{ restaurant._id }}/edit" method="POST">
-    <div class="form-group">
-      <label for="name">餐廳名稱 :</label>
-      <input type="text" placeholder="name" name="name" value="{{ restaurant.name }}">
+<header>
+  <!-- navigation -->
+  <nav class="navbar navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
+          width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
+        我的餐廳清單
+      </a>
     </div>
-    <div class="form-group">
-      <label for="name">餐廳英文名稱 :</label>
-      <input type="text" placeholder="name" name="name_en" value="{{ restaurant.name_en }}">
+  </nav>
+
+  <div class="banner"></div>
+</header>
+
+<div class="container create-restaurant">
+
+  <form action="/restaurants/edit/{{ Restaurant._id }}" method="POST">
+
+    {{!-- 餐廳名稱 --}}
+    <div class="mb-3">
+      <label for="name" class="form-label">餐廳名稱</label>
+      <input type="text" class="form-control" value="{{ Restaurant.name }}" id="name" name="name"
+        aria-describedby="name" required>
+      {{!-- <div id="name" class="form-text">We'll never share your email with anyone else.</div> --}}
     </div>
-    <div class="form-group">
-      <label for="name">餐廳類別 :</label>
-      <input type="text" placeholder="name" name="category" value="{{ restaurant.category }}">
+
+    {{!-- 餐廳英文名稱 --}}
+    <div class="mb-3">
+      <label for="name_en" class="form-label">餐廳英文名稱</label>
+      <input type="text" class="form-control" value="{{ Restaurant.name_en }}" name="name_en" id="name_en" required>
     </div>
-    <div class="form-group">
-      <label for="name">餐廳地址 :</label>
-      <input type="text" placeholder="name" name="location" value="{{ restaurant.location }}">
+
+    {{!-- 類別 --}}
+    <div class="mb-3">
+      <label for="category">類別</label>
+      <input list="categories" class="form-control" value="{{ Restaurant.category }}" name="category" id="category"
+        required>
+      <datalist id="categories">
+        <option>中東料理</option>
+        <option>日本料理</option>
+        <option>義式餐廳</option>
+        <option>美式</option>
+        <option>酒吧</option>
+        <option>咖啡</option>
+      </datalist>
     </div>
-    <div class="form-group">
-      <label for="name">餐廳 googlemap :</label>
-      <input type="text" placeholder="name" name="google_map" value="{{ restaurant.google_map }}">
+
+    {{!-- 照片網址 --}}
+    <div class="mb-3">
+      <label for="image" class="form-label">圖片網址</label>
+      <input type="text" class="form-control" value="{{ Restaurant.image }}" name="image" id="image" required>
     </div>
-    <div class="form-group">
-      <label for="name">餐廳電話 :</label>
-      <input type="text" placeholder="name" name="phone" value="{{ restaurant.phone }}">
+
+    {{!-- 地址 --}}
+    <div class="mb-3">
+      <label for="location" class="form-label">地址</label>
+      <input type="text" class="form-control" value="{{ Restaurant.location }}" name="location" id="location" required>
     </div>
-    <div class="form-group">
-      <label for="name">餐廳評分 :</label>
-      <input type="text" placeholder="name" name="rating" value="{{ restaurant.rating }}">
+
+    <div class="mb-3">
+      <label for="google_map" class="form-label">goole map 網址</label>
+      <input type="text" class="form-control" value="{{ Restaurant.google_map }}" name="google_map" id="google_map"
+        required>
     </div>
-    <div class="form-group">
-      <label for="name">餐廳敘述 :</label>
-      <input type="text" placeholder="name" name="description" value="{{ restaurant.description }}">
+
+    {{!-- 電話 --}}
+    <div class="mb-3">
+      <label for="phone" class="form-label">電話</label>
+      <input type="text" class="form-control" value="{{ Restaurant.phone }}" name="phone" id="phone" required>
     </div>
-    <div class="form-group">
-      <label for="name">餐廳圖片 :</label>
-      <input type="text" placeholder="name" name="image" value="{{ restaurant.image }}">
+
+    {{!-- 簡介 --}}
+    <div class="mb-3">
+      <label for="description" class="form-label">簡介</label>
+      <textarea type="text" class="form-control" name="description"
+        id="description">{{ Restaurant.description }}</textarea>
     </div>
-    <button type="submit">Save</button>
-    <a href="/">back</a>
+
+    {{!-- 儲存 --}}
+    <button type="submit" class="btn btn-info">儲存修改</button>
   </form>
+
 </div>

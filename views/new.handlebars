@@ -1,79 +1,80 @@
-<div class="container">
-  <div class="row">
-    <h1 class=' col-12 mt-3 mb-3 text-center'>餐廳新增</h1>
-  </div>
+<header>
+  <!-- navigation -->
+  <nav class="navbar navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
+          width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
+        我的餐廳清單
+      </a>
+    </div>
+  </nav>
 
-  <form action="/" method="POST">
-    <div class="mb-3 row">
-      <label for="chName" class="col-sm-2 col-form-label">餐廳中文名稱</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="chName" placeholder="ex: 鼎泰豐" name="name" required>
-      </div>
+  <div class="banner"></div>
+</header>
+
+<div class="container create-restaurant">
+
+  <form action="/restaurant/new" method="POST">
+
+    {{!-- 餐廳名稱 --}}
+    <div class="mb-3">
+      <label for="name" class="form-label">餐廳名稱</label>
+      <input type="text" class="form-control" id="name" name="name" aria-describedby="name" required>
+      {{!-- <div id="name" class="form-text">We'll never share your email with anyone else.</div> --}}
     </div>
 
-    <div class="mb-3 row">
-      <label for="engName" class="col-sm-2 col-form-label">餐廳英文名稱</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="engName" placeholder="ex: Din Tai Fung" name="name_en" required>
-      </div>
+    {{!-- 餐廳英文名稱 --}}
+    <div class="mb-3">
+      <label for="name_en" class="form-label">餐廳英文名稱</label>
+      <input type="text" class="form-control" name="name_en" id="name_en" required>
     </div>
 
-    <div class="mb-3 row">
-      <label for="category" class="col-sm-2 col-form-label">餐廳分類</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="category" placeholder="ex: 港式餐飲" name="category" required>
-      </div>
+    {{!-- 類別 --}}
+    <div class="mb-3">
+      <label for="category">類別</label>
+      <input list="categories" class="form-control" name="category" id="category" required>
+      <datalist id="categories">
+        <option>中東料理</option>
+        <option>日本料理</option>
+        <option>義式餐廳</option>
+        <option>美式</option>
+        <option>酒吧</option>
+        <option>咖啡</option>
+      </datalist>
     </div>
 
-    <div class="mb-3 row">
-      <label for="imageShow" class="col-sm-2 col-form-label">封面圖片地址</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="imageShow" name="image">
-      </div>
+    {{!-- 照片網址 --}}
+    <div class="mb-3">
+      <label for="image" class="form-label">圖片網址</label>
+      <input type="text" class="form-control" name="image" id="image" required>
     </div>
 
-    <div class="mb-3 row">
-      <label for="address" class="col-sm-2 col-form-label">餐廳地址</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="address" name="location" required>
-      </div>
+    {{!-- 地址 --}}
+    <div class="mb-3">
+      <label for="location" class="form-label">地址</label>
+      <input type="text" class="form-control" name="location" id="location" required>
     </div>
 
-    <div class="mb-3 row">
-      <label for="phone" class="col-sm-2 col-form-label">餐廳電話</label>
-      <div class="col-sm-10">
-        <input type="number" class="form-control" id="phone" name="phone" required>
-      </div>
+    <div class="mb-3">
+      <label for="google_map" class="form-label">goole map 網址</label>
+      <input type="text" class="form-control" name="google_map" id="google_map" required>
     </div>
 
-    <div class="mb-3 row">
-      <label for="map" class="col-sm-2 col-form-label">Google Map</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="map" name="google_map">
-      </div>
+    {{!-- 電話 --}}
+    <div class="mb-3">
+      <label for="phone" class="form-label">電話</label>
+      <input type="text" class="form-control" name="phone" id="phone" required>
     </div>
 
-    <div class="mb-3 row">
-      <label for="rating" class="col-sm-2 col-form-label">評分等級</label>
-      <div class="col-sm-10">
-        <input type="number" class="form-control" id="rating" name="rating" required>
-        <small class="text-muted form-text">( 等級為 0.0 ~ 5.0 )</small>
-      </div>
+    {{!-- 簡介 --}}
+    <div class="mb-3">
+      <label for="description" class="form-label">簡介</label>
+      <textarea type="text" class="form-control" name="description" id="description"></textarea>
     </div>
 
-    <div class="mb-3 row">
-      <label for="description" class="col-sm-2 col-form-label">餐廳描述</label>
-      <div class="col-sm-10">
-        <textarea id="description" cols="30" rows="5" class="form-control" name="description" required></textarea>
-      </div>
-    </div>
-
-
-    <div class="col-12 text-center mt-3">
-      <button type="submit" class="btn btn-primary mr-3">確認送出</button>
-      <a href="/" class="btn btn-danger">上一頁</a>
-    </div>
+    {{!-- 儲存 --}}
+    <button type="submit" class="btn btn-info">新增餐廳</button>
   </form>
-
 
 </div>
